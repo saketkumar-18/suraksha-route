@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0b0e14">
+<title>Suraksha — Women's Safety Route Scorer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://unpkg.com/@turf/turf@7.1.0/dist/turf.min.js"></script>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="app">
+  <!-- Header -->
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-mark">S</div>
+      <div>
+        <h1>Suraksha</h1>
+        <p class="tagline">Women's Safety Route Scorer</p>
+      </div>
+    </div>
+    <div class="top-actions">
+      <div class="city-picker">
+        <label for="citySelect">City</label>
+        <select id="citySelect"></select>
+      </div>
+      <div class="time-picker">
+        <label for="timeSelect">Departure</label>
+        <select id="timeSelect">
+          <option value="day">Daytime</option>
+          <option value="early" selected>Evening 18–21</option>
+          <option value="night">Late Night 21–24</option>
+          <option value="late">After Midnight 0–6</option>
+        </select>
+      </div>
+      <button id="sosBtn" class="sos" title="Emergency SOS">SOS</button>
+    </div>
+  </header>
+
+  <main class="layout">
+    <!-- Map -->
+    <section class="map-pane">
+      <div id="map"></div>
+      <div class="map-legend">
+        <div><span class="dot" style="background:#22c55e"></span> Safer</div>
+        <div><span class="dot" style="background:#eab308"></span> Caution</div>
+        <div><span class="dot" style="background:#ef4444"></span> Risky</div>
+        <div class="legend-note">Grid: lighting · crowd · open venues · visibility</div>
+      </div>
+      <div id="mapLoading" class="map-loading hidden">
+        <div class="spinner"></div>
+        <p>Scoring safety grid…</p>
+      </div>
+    </section>
+
+    <!-- Side panel -->
+    <aside class="panel">
+      <div class="card search-card">
+        <h2>Plan your journey</h2>
+        <div class="field">
+          <span class="icon">●</span>
+          <input id="fromInput" type="text" placeholder="From — pick on map or type">
+          <button class="pinbtn" id="fromPin" title="Pick on map">📍</button>
+        </div>
+        <div class="field">
+          <span class="icon" style="color:#ef4444">●</span>
+          <input id="toInput" type="text" placeholder="To — pick on map or type">
+          <button class="pinbtn" id="toPin" title="Pick on map">📍</button>
+        </div>
+        <button id="routeBtn" class="primary">Find Safest Routes</button>
+        <p class="hint">Safety model: street lighting · footfall proxy · open businesses · CCTV/police · visibility</p>
+      </div>
+
+      <div id="results" class="hidden">
+        <div class="card best-card hidden" id="bestCard">
+          <div class="badge">SAFEST</div>
+          <h2 id="bestTitle">Route 1</h2>
+          <div class="metrics" id="bestMetrics"></div>
+          <button id="bestGo" class="primary small">Select this route</button>
+        </div>
+        <div id="routeList"></div>
+      </div>
+
+      <div class="card city-card">
+        <h2 id="cityTitle">City context</h2>
+        <div id="cityStats" class="city-stats"></div>
+        <p class="hint" id="cityNote"></p>
+      </div>
+    </aside>
+  </main>
+
+  <footer class="foot">
+    <p>Data: NCRB Crime in India 2023 (city tables) · OpenStreetMap · Safety heuristics. Research prototype — not a substitute for official guidance.</p>
+  </footer>
+</div>
+
+<div id="sosModal" class="modal hidden">
+  <div class="modal-box">
+    <h2>Emergency SOS</h2>
+    <p id="sosLocation" class="sos-loc">Locating…</p>
+    <div class="sos-actions">
+      <a id="sosCall" class="sos-call" href="tel:112">Call 112 (India Emergency)</a>
+      <a id="sosWomb" class="sos-call alt" href="tel:1091">Women Helpline 1091</a>
+      <button id="sosClose" class="ghost">Close</button>
+    </div>
+    <p class="hint">Share your live location with a trusted contact:</p>
+    <button id="sosShare" class="primary small">Share location link</button>
+  </div>
+</div>
+
+<script src="cities-data.js"></script>
+<script src="safety.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

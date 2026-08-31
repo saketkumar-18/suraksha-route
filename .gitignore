@@ -1,0 +1,11 @@
+# data/raw is not committed (large PDFs, API mirrors, caches)
+data/raw/
+# venv
+.venv/
+venv/
+__pycache__/
+*.pyc
+.vercel
+node_modules/
+.pytest_cache/
+# committed data lives in data/processed only

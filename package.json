@@ -1,0 +1,9 @@
+{
+  "name": "suraksha-route",
+  "version": "1.0.0",
+  "description": "Women's Safety Route Scorer — score city routes by crime data, street lighting, crowd density and open businesses; suggest the safest route home.",
+  "scripts": {
+    "test": "python -m pytest tests/ -q"
+  },
+  "license": "MIT"
+}
