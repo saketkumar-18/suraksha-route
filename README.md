@@ -20,6 +20,19 @@ businesses at night**; suggest the safest route home.
 5. SOS button: one tap to call 112 / women helpline 1091 and share your live
    location.
 
+## Results
+
+- **Data**: NCRB CII 2023 — 53 metros, 76,573 cases against women, 36,444
+  (47.6%) street-relevant (rape, K&A, assault-354, insult-509).
+- **ML model** (city street-crime tercile band, 5-fold CV, 51 cities):
+  LogisticRegression — accuracy **0.724 ± 0.079**, macro-F1 **0.703 ± 0.088**
+  (majority-band baseline ≈ 0.35). Top signals: crime-mix shares, venue
+  density, police density. `ml/metrics.json`, `ml/importances.json`.
+- **E2E pipeline test**: 20 km Delhi corridor, 2 OSRM alternatives,
+  1,296-cell grid from 20,809 OSM elements, night scores 28 vs 23/100.
+- **Tests**: 13/13 pytest green (data integrity, JS-model parity, ML
+  artifacts, live routing).
+
 ## Safety model
 
 Cell score (per 350 m grid cell, 0–100):
