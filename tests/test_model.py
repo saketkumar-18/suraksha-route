@@ -137,6 +137,7 @@ def test_model_artifacts():
 def test_model_predicts_valid_band():
     bundle = joblib.load(ROOT / "ml" / "model.joblib")
     feats = pd.read_csv(ROOT / "data" / "processed" / "city_features_osm.csv")
-    X = feats[bundle["features"]].head(5)
+    # reindex handles optional columns (e.g. lit_share before fetch_lit_share ran)
+    X = feats.reindex(columns=bundle["features"], fill_value=0).head(5)
     pred = bundle["model"].predict(X)
     assert set(pred) <= set(bundle["bands"])

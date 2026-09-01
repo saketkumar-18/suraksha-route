@@ -28,6 +28,9 @@ ML = ROOT / "ml"
 ML.mkdir(exist_ok=True)
 
 df = pd.read_csv(PROC / "city_features_osm.csv")
+if "lit_share" not in df.columns:
+    df["lit_share"] = 0.0
+df["lit_share"] = df["lit_share"].fillna(0.0)
 y_band = pd.qcut(df["street_crime_rate"], q=3, labels=["low", "mid", "high"])
 X = df[[
     "road_km_per_km2", "lit_share", "venue_density", "transit_density",
@@ -41,7 +44,10 @@ models = {
     "lr": Pipeline([("sc", StandardScaler()), ("clf", LogisticRegression(max_iter=2000, class_weight="balanced"))]),
 }
 
-skf = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
+# small-sample guard: n_splits must be <= smallest band count
+n_splits = min(5, pd.Series(y).value_counts().min())
+print(f"cities: {len(df)} | cv folds: {n_splits}")
+skf = StratifiedKFold(n_splits=n_splits, shuffle=True, random_state=42)
 results = {}
 for name, m in models.items():
     acc = cross_val_score(m, X, y, cv=skf, scoring="accuracy")
@@ -69,9 +75,11 @@ print("importances:", importances)
 # also fit a regressor for continuous rate (for reporting)
 from sklearn.ensemble import RandomForestRegressor
 rf_reg = RandomForestRegressor(n_estimators=400, random_state=42)
-mae = -cross_val_score(rf_reg, X, df["street_crime_rate"], cv=5, scoring="neg_mean_absolute_error")
+mae = -cross_val_score(rf_reg, X, df["street_crime_rate"], cv=n_splits, scoring="neg_mean_absolute_error")
 rf_reg.fit(X, df["street_crime_rate"])
 results["rf_regressor_mae"] = round(float(mae.mean()), 2)
+results["n_cities"] = int(len(df))
+results["majority_band_share"] = round(float(pd.Series(y).value_counts(normalize=True).max()), 3)
 
 joblib.dump({"model": best, "regressor": rf_reg, "features": list(X.columns),
              "bands": ["low", "mid", "high"]}, ML / "model.joblib")

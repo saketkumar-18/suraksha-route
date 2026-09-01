@@ -1,0 +1,23 @@
+{
+  "rf": {
+    "cv_accuracy_mean": 0.629,
+    "cv_accuracy_std": 0.108,
+    "cv_f1_macro_mean": 0.617,
+    "cv_f1_macro_std": 0.113
+  },
+  "gb": {
+    "cv_accuracy_mean": 0.473,
+    "cv_accuracy_std": 0.084,
+    "cv_f1_macro_mean": 0.479,
+    "cv_f1_macro_std": 0.086
+  },
+  "lr": {
+    "cv_accuracy_mean": 0.724,
+    "cv_accuracy_std": 0.079,
+    "cv_f1_macro_mean": 0.703,
+    "cv_f1_macro_std": 0.088
+  },
+  "rf_regressor_mae": 33.24,
+  "n_cities": 51,
+  "majority_band_share": 0.333
+}

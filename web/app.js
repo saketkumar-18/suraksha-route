@@ -19,7 +19,7 @@
   var OVERPASS = "https://overpass-api.de/api/interpreter";
   var gridCache = {}; // city -> GeoJSON FeatureCollection
 
-  var map = L.map("map", { zoomControl: true, attributionControl: true }).setView([28.6139, 77.209], 12);
+  var map = L.map("map", { zoomControl: true, attributionControl: true, preferCanvas: true }).setView([28.6139, 77.209], 12);
 
   L.tileLayer("https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png", {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>',

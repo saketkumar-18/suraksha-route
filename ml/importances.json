@@ -1,0 +1,10 @@
+{
+  "kidnap_share": 0.3068,
+  "assault_share": 0.1954,
+  "venue_density": 0.0709,
+  "police_density": 0.0569,
+  "pop_density_lakh_per_km2": 0.0566,
+  "road_km_per_km2": 0.0447,
+  "lit_share": 0.0,
+  "transit_density": -0.0023
+}

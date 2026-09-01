@@ -1,0 +1,54 @@
+{
+  "cities_covered": 53,
+  "total_cases_2023": 76573,
+  "total_street_crime": 36444,
+  "median_street_rate": 43.5,
+  "top5_riskiest": [
+    {
+      "city": "Vasai Virar",
+      "rate": 136.0
+    },
+    {
+      "city": "Jaipur",
+      "rate": 133.6
+    },
+    {
+      "city": "Jodhpur",
+      "rate": 118.3
+    },
+    {
+      "city": "Kota",
+      "rate": 106.8
+    },
+    {
+      "city": "Faridabad",
+      "rate": 106.5
+    }
+  ],
+  "top5_safest": [
+    {
+      "city": "Coimbatore",
+      "rate": 2.8
+    },
+    {
+      "city": "Tiruchirapalli",
+      "rate": 3.5
+    },
+    {
+      "city": "Chennai",
+      "rate": 4.9
+    },
+    {
+      "city": "Madurai",
+      "rate": 8.9
+    },
+    {
+      "city": "Kolkata",
+      "rate": 9.7
+    }
+  ],
+  "delhi": {
+    "cases": 13366,
+    "street_rate": 94.7
+  }
+}
