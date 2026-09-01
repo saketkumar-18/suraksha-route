@@ -21,18 +21,28 @@ def start():
 
 def poll(device_code, interval, expires_in):
     deadline = time.time() + expires_in
+    net_fails = 0
     while time.time() < deadline:
         time.sleep(interval)
-        r = requests.post(
-            "https://github.com/login/oauth/access_token",
-            headers={"Accept": "application/json"},
-            data={
-                "client_id": CLIENT_ID,
-                "device_code": device_code,
-                "grant_type": "urn:ietf:params:oauth:grant-type:device_code",
-            },
-            timeout=30,
-        )
+        try:
+            r = requests.post(
+                "https://github.com/login/oauth/access_token",
+                headers={"Accept": "application/json"},
+                data={
+                    "client_id": CLIENT_ID,
+                    "device_code": device_code,
+                    "grant_type": "urn:ietf:params:oauth:grant-type:device_code",
+                },
+                timeout=30,
+            )
+            net_fails = 0
+        except requests.RequestException:
+            net_fails += 1
+            print(f"network hiccup {net_fails}", flush=True)
+            if net_fails >= 10:
+                print("FLOW_ERROR: network")
+                return False
+            continue
         d = r.json()
         if "access_token" in d:
             from pathlib import Path

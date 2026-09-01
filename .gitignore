@@ -9,3 +9,5 @@ __pycache__/
 node_modules/
 .pytest_cache/
 # committed data lives in data/processed only
+gh_device_flow.json
+gh_token.json
