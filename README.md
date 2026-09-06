@@ -3,7 +3,7 @@
 Score city routes by **crime data, street lighting, crowd density and open
 businesses at night**; suggest the safest route home.
 
-**Live:** https://suraksha-route.vercel.app
+**Live:** https://suraksha-route-iota.vercel.app
 
 ## What it does
 
